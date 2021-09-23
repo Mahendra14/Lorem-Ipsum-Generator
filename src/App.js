@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import data from './data';
 function App() {
-  const [data,setData] = useState([]);
+  const [text,setText] = useState([]);
   const [count,setCount] = useState(0);
   
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("hello there from console!");
+    let amount = parseInt(count);
+    if(count <= 0){
+      amount = 1;
+    }
+    if(count >= data.length){
+      amount = data.length;
+    }
+    setText(data.slice(0,amount));
   }
   
   return (
@@ -20,12 +28,11 @@ function App() {
         <button type="submit" className="btn">generate</button>
       </form>
       <article className="lorem-text">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi, eligendi.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi, eligendi.
-        </p>
+       {
+         text.map((item,index)=>{
+           return <p id={index}>{item}</p>
+         })
+       }
 
       </article>
     </section>
